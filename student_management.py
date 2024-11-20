@@ -1,26 +1,29 @@
+import json
+
+
+# this class stores individual student data
 class Student:
-    student_list = []
+    def __init__(self, id, name, age, grade, subjects):
+        self.id = id
+        self.name = name
+        self.age = age
+        self.grade = grade
+        self.subjects = subjects
+
+
+# this manages students data (multiple students)
+class Students:
+    def __init__(self):
+        self.student_list = []  # here im storing instance of 'class Student'
+        self.load_students_from_file()
 
     # "students = [{"id":1,"name":"sanjana","age":30,"grade":"Vg","subject":["math","english"]},
     # {"id":1,"name":"sanjana","age":30,"grade":"Vg","subject":["math","english"]}]"
 
-    def add_student(cls, id, name, age, grade, subject):
-        one_student = {}
-        for stud in cls.student_list:
-            if stud["id"] == id:
-                print("ID exists")
-                return
-
-        one_student = {
-            "id": id,
-            "name": name,
-            "age": age,
-            "grade": grade,
-            "subject": subject,
-        }
-        cls.student_list.append(one_student)
-
-        print(cls.student_list)
+    def add_student(self):
+        student_data = self.get_input()
+        if student_data:
+            self.student_list.append(student_data)
 
     def view_students():
         for student in Student.student_lsit:
@@ -32,16 +35,14 @@ class Student:
     def delete_student():
         pass
 
-    def save_students_to_file(cls):
-        with open("student_data.txt", "w") as outfile:
-            for student in cls.student_list:
-                outfile.write(f"{student}\n")
+    def save_students_to_file():
+        pass
 
     def load_students_from_file():
         pass
 
 
-student = Student()
+student = Students()
 
 
 def get_input():
@@ -63,27 +64,31 @@ def get_input():
 
 
 def options():
+    students = Students()
     while True:
-        try:
-            option = int(
-                input("""Choose a function from below options list:
+        print("""Choose a function from below options list:
                             1. Add student
                             2. View all students
                             3. Update a student's information
                             4. Delete a student
                             5. Save and exit\n""")
-            )
+        try:
+            option = int(input(">"))
             if option == 1:
                 print("You chose to Add student.\nEnter student details.")
-                get_input()
+                student_data = get_input(students.student_list)
+                if student_data:
+                    students.add_student(student_data)
+
             elif option == 2:
-                Student.view_students()
+                student.view_students()
             elif option == 3:
-                Student.update_student()
+                student.update_student()
             elif option == 4:
-                Student.delete_student()
+                student.delete_student()
             elif option == 5:
-                Student.save_students_to_file()
+                student.save_students_to_file()
+                break
             else:
                 print("Invalid option.")
 
