@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 
 # this class stores individual student data
@@ -18,22 +19,21 @@ class Student:
 
 # this manages students data (multiple students)
 class Students:
+    # student_list,add_students,view_all_students,update_student,delete_student,save_to_file,load_from_file
     def __init__(self):
         self.student_list = []  # here im storing instance of 'class Student'
         self.load_students_from_file()
 
-    def add_student(self, student_data):
-        student = Student(student_data)
-        self.students.append(student)
-        print(f"Student {student.name} added successfully.")
+    def add_student(self, student_data: Student):
+        self.student_list.append(student_data)
+        print(f"Student {student_data.name} added successfully.")
 
     def view_all_students(self):
-        if not self.students:
+        if not self.student_list:
             print("No students available.")
         else:
-            for student in self.students:
-                student_obj = Student(student)
-                student_obj.print_student()
+            for student in self.student_list:
+                student.print_student()
 
     def update_student():
         pass
@@ -44,18 +44,19 @@ class Students:
     def save_students_to_file():
         pass
 
-    def load_students_from_file():
+    def load_students_from_file(self):
         pass
 
 
 # getting user input and validating - done but needs more conditons for validation
-def get_input(students):
+def get_input(student_list: List[Student]):
     try:
         subjects = []
         student_id = int(input("Enter student id: "))
-        for student in students:
-            if any(student["id"] == student_id):  # check condition for unique id
+        for student in student_list:
+            if student.id == student_id:  # check condition for unique id
                 print(f"Student ID {student_id} already exists.")
+                return
         name = input("Enter student name: ")
         age = int(input("Enter student age: "))
         grade = input("Enter student grade: ")
@@ -63,7 +64,7 @@ def get_input(students):
         for n in range(0, num_of_subjects):
             n = input("Enter subject: ")
             subjects.append(n)
-        return {"id": student_id, "name": name, "age": age, "grade": grade, "subjects": subjects}
+        return Student(student_id, name, age, grade, subjects)
 
     except ValueError:
         print("Enter valid data.")
@@ -83,8 +84,9 @@ def options():
             option = int(input(">"))
             if option == 1:
                 print("You chose to Add student.\nEnter student details.")
-                student_data = get_input(students_manager.students)  # Get input and validate ID
-                students_manager.add_student(student_data)
+                student_data = get_input(students_manager.student_list)  # Get input and validate ID
+                if student_data:
+                    students_manager.add_student(student_data)
 
             elif option == 2:
                 students_manager.view_all_students()
