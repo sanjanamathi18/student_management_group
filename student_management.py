@@ -65,10 +65,15 @@ class Students:
         print(f"Student {self.name} saved to the file")
 
     def load_students_from_file(self):
-        with open("student_data.json", mode="r", encoding="utf-8") as outfile:
-            data = json.load(outfile)
-            self.student_list = [Student(student["id"], student["name"], student["age"], student["grade"], student["subjects"]) for student in data]
+        try: 
+            with open("student_data.json", mode="r", encoding="utf-8") as outfile:
+                data = json.load(outfile)
+                self.student_list = [Student(student["id"], student["name"], student["age"], student["grade"], student["subjects"]) for student in data]
+
             print("Students loaded from the file.") # we should write Try except in case of we don't find the data.
+
+        except Exception as e:
+            print(f"Error loading students: {e}")
 
 # getting user input and validating - done but needs more conditons for validation
 def get_input(student_list: List[Student]):
