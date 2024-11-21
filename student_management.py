@@ -62,7 +62,7 @@ class Students:
         with open ("student_data.json", mode="w", encoding="utf-8") as file:
             json.dump([student.dic() for student in self.student_list], file, indent=4,)
         
-        print(f"Student {self.name} saved to the file")
+        print(f"Student {Student.name} saved to the file")
 
     def load_students_from_file(self):
         try: 
