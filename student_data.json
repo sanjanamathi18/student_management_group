@@ -18,5 +18,16 @@
             "math",
             "eng"
         ]
+    },
+    {
+        "id": 3,
+        "name": "Sanjana",
+        "age": 30,
+        "grade": "vg",
+        "subjects": [
+            "eng",
+            "prog",
+            "swed"
+        ]
     }
 ]
