@@ -8,5 +8,15 @@
             "eng",
             "swed"
         ]
+    },
+    {
+        "id": 2,
+        "name": "Durga ",
+        "age": 24,
+        "grade": "vg",
+        "subjects": [
+            "math",
+            "eng"
+        ]
     }
 ]
