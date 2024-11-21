@@ -16,6 +16,15 @@ class Student:
             f"ID: {self.id}, Name: {self.name}, Age: {self.age}, Grade: {self.grade}, Subjects: {', '.join(self.subjects)}"
         )
 
+    def dic(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "age": self.age,
+            "grade": self.grade,
+            "subjects": self.subjects
+        }
+
 
 # this manages students data (multiple students)
 class Students:
@@ -38,8 +47,15 @@ class Students:
     def update_student():
         pass
 
-    def delete_student():
-        pass
+    def delete_student(self, student_id: int):
+        for student in self.student_list:
+            if student.id == student_id:
+                self.student_list.remove(student)
+                print(f"Student with {student_id} deleted.")
+                return
+            else:
+                print(f"Student with ID {student_id} not exist.")
+
 
     def save_students_to_file():
         pass
