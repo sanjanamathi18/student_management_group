@@ -51,7 +51,7 @@ class Students:
         for student in self.student_list:
             if student.id == student_id:
                 self.student_list.remove(student)
-                print(f"Student with {student_id} deleted.")
+                print(f"Student with ID {student_id} deleted.")
                 return
             else:
                 print(f"Student with ID {student_id} not exist.")
