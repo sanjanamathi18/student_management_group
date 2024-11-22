@@ -104,7 +104,7 @@ class Students:
                 print(f"Student with ID {student_id} deleted.")
                 return
             else:
-                print(f"Student with ID {student_id} not exist.")
+                print(f"Student with ID {student_id} not exist")
 
 
     def save_students_to_file(self):
