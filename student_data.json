@@ -1,0 +1,33 @@
+[
+    {
+        "id": 2,
+        "name": "Durga ",
+        "age": 24,
+        "grade": "vg",
+        "subjects": [
+            "math",
+            "eng"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Sanjana",
+        "age": 30,
+        "grade": "vg",
+        "subjects": [
+            "eng",
+            "prog",
+            "swed"
+        ]
+    },
+    {
+        "id": 1,
+        "name": "chama",
+        "age": 33,
+        "grade": "vg",
+        "subjects": [
+            "eng",
+            "math"
+        ]
+    }
+]
