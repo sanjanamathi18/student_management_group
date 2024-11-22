@@ -16,6 +16,16 @@ class Student:
             f"ID: {self.id}, Name: {self.name}, Age: {self.age}, Grade: {self.grade}, Subjects: {', '.join(self.subjects)}"
         )
 
+    def dic(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "age": self.age,
+            "grade": self.grade,
+            "subjects": self.subjects
+        }
+    
+
 
 # this manages students data (multiple students)
 class Students:
@@ -35,18 +45,86 @@ class Students:
             for student in self.student_list:
                 student.print_student()
 
-    def update_student():
-        pass
+    def update_student(self, student_id: int):
+        for student in self.student_list:
+            if student.id == student_id:
+                print(f"\nUpdating details for Student ID {student_id}.")
+                print("Press Enter to skip and keep the current value.\n")
 
-    def delete_student():
-        pass
+            
+                student.name = self.update_name(student.name)
+                student.age = self.update_age(student.age)
+                student.grade = self.update_grade(student.grade)
+                student.subjects = self.update_subjects(student.subjects)
 
-    def save_students_to_file():
-        pass
+                print(f"\nStudent ID {student_id} updated successfully!")
+                return
+        
+        print(f"Student with ID {student_id} not found.\n")
+
+    def update_name(self, current_name):
+        new_name = input(f"Current Name: {current_name}. New name: (or press Enter to keep) ")
+        return new_name if new_name else current_name
+
+    def update_age(self, current_age):
+        try:
+            new_age = input(f"Current Age: {current_age}. Enter new age (or press Enter to keep): ").strip()
+            return int(new_age) if new_age else current_age
+        except ValueError:
+            print("Invalid input for age. Keeping the current value.")
+            return current_age
+
+    def update_grade(self, current_grade):
+        new_grade = input(f"Current Grade: {current_grade}. New grade :(or press Enter to keep) ")
+        return new_grade if new_grade else current_grade
+
+    def update_subjects(self, current_subjects):
+        print(f"Current Subjects: {', '.join(current_subjects)}")
+        choice = input("Do you want to update subjects? (yes/no):")
+        if choice.lower() == "yes":
+            return self.get_new_subjects()
+        return current_subjects
+
+    def get_new_subjects(self):
+        subjects = []
+        try:
+            num_of_subjects = input("How many subjects to add? ")
+            if num_of_subjects.isdigit():
+                for _ in range(int(num_of_subjects)):
+                    subject = input("Enter subject: ")
+                    subjects.append(subject)
+            else:
+                print("Invalid input. No subjects updated.")
+        except ValueError:
+            print("Invalid input. No subjects updated.")
+        return subjects    
+        
+    def delete_student(self, student_id: int):
+        for student in self.student_list:
+            if student.id == student_id:
+                self.student_list.remove(student)
+                print(f"Student with ID {student_id} deleted.")
+                return
+            else:
+                print(f"Student with ID {student_id} not exist")
+
+
+    def save_students_to_file(self):
+        with open ("student_data.json", mode="w", encoding="utf-8") as file:
+            json.dump([student.dic() for student in self.student_list], file, indent=4,)
+        
+        print(f"Student saved to the file")
 
     def load_students_from_file(self):
-        pass
+        try: 
+            with open("student_data.json", mode="r", encoding="utf-8") as outfile:
+                data = json.load(outfile)
+                self.student_list = [Student(student["id"], student["name"], student["age"], student["grade"], student["subjects"]) for student in data]
 
+            print("Students loaded from the file.") # we should write Try except in case of we don't find the data.
+
+        except Exception as e:
+            print(f"Error loading students: {e}")
 
 # getting user input and validating - done but needs more conditons for validation
 def get_input(student_list: List[Student]):
@@ -92,8 +170,11 @@ def options():
                 students_manager.view_all_students()
 
             elif option == 3:
-                student_id = int(input())
-                students_manager.update_student(student_id)
+                try:
+                    student_id = int(input("updating details for student:{student_id}"))
+                    students_manager.update_student(student_id)
+                except ValueError:
+                    print("Invalid input. Id must be number")
 
             elif option == 4:
                 try:
