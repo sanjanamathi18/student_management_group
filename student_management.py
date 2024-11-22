@@ -13,7 +13,7 @@ class Student:
 
     def print_student(self):  # to print the details of the student
         print(
-            f"ID: {self.id}, Name: {self.name}, Age: {self.age}, Grade: {self.grade}, Subjects: {', '.join(self.subjects)}"
+            f"ID: {self.id}, Name: {self.name}, Age: {self.age}, Grade: {self.grade}, Subjects: {' '.join(self.subjects)}"
         )
 
 
@@ -35,13 +35,13 @@ class Students:
             for student in self.student_list:
                 student.print_student()
 
-    def update_student():
+    def update_student(self):
         pass
 
-    def delete_student():
+    def delete_student(self):
         pass
 
-    def save_students_to_file():
+    def save_students_to_file(self):
         pass
 
     def load_students_from_file(self):
