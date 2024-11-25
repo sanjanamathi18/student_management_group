@@ -22,9 +22,8 @@ class Student:
             "name": self.name,
             "age": self.age,
             "grade": self.grade,
-            "subjects": self.subjects
+            "subjects": self.subjects,
         }
-    
 
 
 # this manages students data (multiple students)
@@ -51,7 +50,6 @@ class Students:
                 print(f"\nUpdating details for Student ID {student_id}.")
                 print("Press Enter to skip and keep the current value.\n")
 
-            
                 student.name = self.update_name(student.name)
                 student.age = self.update_age(student.age)
                 student.grade = self.update_grade(student.grade)
@@ -59,72 +57,99 @@ class Students:
 
                 print(f"\nStudent ID {student_id} updated successfully!")
                 return
-        
+
         print(f"Student with ID {student_id} not found.\n")
 
     def update_name(self, current_name):
-        new_name = input(f"Current Name: {current_name}. New name: (or press Enter to keep) ")
+        print(f"Current Name: {current_name} \n(or Press Enter to keep)")
+        new_name = input(" New name:  ")
+        # new_name = input(f"Current Name: {current_name}. New name: (or press Enter to keep) ")
         return new_name if new_name else current_name
 
     def update_age(self, current_age):
         try:
-            new_age = input(f"Current Age: {current_age}. Enter new age (or press Enter to keep): ").strip()
-            return int(new_age) if new_age else current_age
+            print(f"Current Age: {current_age} \n(or Press Enter to keep)")
+            new_age = int(input("Enter new age: "))
+            return new_age if new_age else current_age
         except ValueError:
-            print("Invalid input for age. Keeping the current value.")
-            return current_age
+            print("Invalid input for age.")
+
+        # try:
+        #     new_age = input(
+        #         f"Current Age: {current_age}. Enter new age (or press Enter to keep): "
+        #     ).strip()
+        #     return int(new_age) if new_age else current_age
+        # except ValueError:
+        #     print("Invalid input for age. Keeping the current value.")
+        #     return current_age
 
     def update_grade(self, current_grade):
-        new_grade = input(f"Current Grade: {current_grade}. New grade :(or press Enter to keep) ")
+        print(f"Current Grade: {current_grade} \n(or Press Enter to keep)")
+        new_grade = input("New grade: ")
+        # new_grade = input(f"Current Grade: {current_grade}. New grade :(or press Enter to keep) ")
         return new_grade if new_grade else current_grade
 
     def update_subjects(self, current_subjects):
         print(f"Current Subjects: {', '.join(current_subjects)}")
         choice = input("Do you want to update subjects? (yes/no):")
         if choice.lower() == "yes":
+            print("Deleting current subjects.")
             return self.get_new_subjects()
         return current_subjects
 
     def get_new_subjects(self):
         subjects = []
         try:
-            num_of_subjects = input("How many subjects to add? ")
-            if num_of_subjects.isdigit():
-                for _ in range(int(num_of_subjects)):
+            num_of_subjects = int(input("How many subjects to add?  "))
+            if num_of_subjects > 0:
+                for _ in range(num_of_subjects):
                     subject = input("Enter subject: ")
                     subjects.append(subject)
             else:
                 print("Invalid input. No subjects updated.")
         except ValueError:
             print("Invalid input. No subjects updated.")
-        return subjects    
-        
+        return subjects
+
     def delete_student(self, student_id: int):
         for student in self.student_list:
             if student.id == student_id:
                 self.student_list.remove(student)
-                print(f"Student with ID {student_id} deleted.")
+                # print(f"Student with ID {student_id} deleted.")
                 return
             else:
                 print(f"Student with ID {student_id} not exist")
 
-
     def save_students_to_file(self):
-        with open ("student_data.json", mode="w", encoding="utf-8") as file:
-            json.dump([student.dic() for student in self.student_list], file, indent=4,)
-        
-        print(f"Student saved to the file")
+        with open("student_data.json", mode="w", encoding="utf-8") as file:
+            json.dump(
+                [student.dic() for student in self.student_list],
+                file,
+                indent=4,
+            )
 
     def load_students_from_file(self):
-        try: 
+        try:
             with open("student_data.json", mode="r", encoding="utf-8") as outfile:
                 data = json.load(outfile)
-                self.student_list = [Student(student["id"], student["name"], student["age"], student["grade"], student["subjects"]) for student in data]
+                self.student_list = [
+                    Student(
+                        student["id"],
+                        student["name"],
+                        student["age"],
+                        student["grade"],
+                        student["subjects"],
+                    )
+                    for student in data
+                ]
 
-            print("Students loaded from the file.") # we should write Try except in case of we don't find the data.
+            print(
+                "Students loaded from the file."
+            )  # we should write Try except in case of we don't find the data.
 
         except Exception as e:
             print(f"Error loading students: {e}")
+
 
 # getting user input and validating - done but needs more conditons for validation
 def get_input(student_list: List[Student]):
@@ -153,15 +178,15 @@ def options():
     students_manager = Students()
     while True:
         print("""Choose a function from below options list:
-                            1. Add student
-                            2. View all students
-                            3. Update a student's information
-                            4. Delete a student
-                            5. Save and exit\n""")
+                1. Add student
+                2. View all students
+                3. Update a student's information
+                4. Delete a student
+                5. Save and exit\n""")
         try:
-            option = int(input(">"))
+            option = int(input("> "))
             if option == 1:
-                print("You chose to Add student.\nEnter student details.")
+                print("Enter student details.")
                 student_data = get_input(students_manager.student_list)  # Get input and validate ID
                 if student_data:
                     students_manager.add_student(student_data)
@@ -170,8 +195,10 @@ def options():
                 students_manager.view_all_students()
 
             elif option == 3:
+                print("Enter student ID to update ")
                 try:
-                    student_id = int(input("updating details for student:{student_id}"))
+                    student_id = int(input("> "))
+                    # student_id = int(input("updating details for student:{student_id}"))
                     students_manager.update_student(student_id)
                 except ValueError:
                     print("Invalid input. Id must be number")
@@ -180,6 +207,7 @@ def options():
                 try:
                     student_id = int(input("Enter ID of the student to delete: "))
                     students_manager.delete_student(student_id)
+                    print(f"Student with ID {student_id} deleted.")
                 except ValueError:
                     print("Invalid input. ID must be number.")
 
