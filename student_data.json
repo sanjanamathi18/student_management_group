@@ -18,5 +18,15 @@
             "math",
             "physics"
         ]
+    },
+    {
+        "id": 1,
+        "name": "san",
+        "age": 23,
+        "grade": "vg",
+        "subjects": [
+            "math ",
+            "english"
+        ]
     }
 ]
