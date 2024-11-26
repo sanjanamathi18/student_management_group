@@ -63,7 +63,6 @@ class Students:
     def update_name(self, current_name):
         print(f"Current Name: {current_name} \n(or Press Enter to keep)")
         new_name = input(" New name:  ")
-        # new_name = input(f"Current Name: {current_name}. New name: (or press Enter to keep) ")
         return new_name if new_name else current_name
 
     def update_age(self, current_age):
@@ -74,19 +73,9 @@ class Students:
         except ValueError:
             print("Invalid input for age.")
 
-        # try:
-        #     new_age = input(
-        #         f"Current Age: {current_age}. Enter new age (or press Enter to keep): "
-        #     ).strip()
-        #     return int(new_age) if new_age else current_age
-        # except ValueError:
-        #     print("Invalid input for age. Keeping the current value.")
-        #     return current_age
-
     def update_grade(self, current_grade):
         print(f"Current Grade: {current_grade} \n(or Press Enter to keep)")
         new_grade = input("New grade: ")
-        # new_grade = input(f"Current Grade: {current_grade}. New grade :(or press Enter to keep) ")
         return new_grade if new_grade else current_grade
 
     def update_subjects(self, current_subjects):
@@ -97,25 +86,46 @@ class Students:
             return self.get_new_subjects()
         return current_subjects
 
+    # def get_new_subjects(self):
+    #     subjects = []
+    #     try:
+    #         num_of_subjects = int(input("How many subjects to add?  "))
+    #         if num_of_subjects > 0:
+    #             for _ in range(num_of_subjects):
+    #                 subject = input("Enter subject: ")
+    #                 subjects.append(subject)
+    #         else:
+    #             print("Invalid input. No subjects updated.")
+    #     except ValueError:
+    #         print("Invalid input. No subjects updated.")
+    #     return subjects
     def get_new_subjects(self):
-        subjects = []
-        try:
-            num_of_subjects = int(input("How many subjects to add?  "))
-            if num_of_subjects > 0:
-                for _ in range(num_of_subjects):
-                    subject = input("Enter subject: ")
-                    subjects.append(subject)
+        new_list = []
+        while True:
+            try:
+                num_of_subjects = int(input("How many subjects to add?  "))
+                if num_of_subjects > 0:
+                    break
+                else:
+                    print("Count cannot be negative.")
+            except ValueError as e:
+                print(f"Enter valid value. Failed with error {e}. ")
+        n = 1
+        while n <= num_of_subjects:
+            sub = input(f"Enter subject {n}: ")
+            if not sub:
+                print("Subject cannot  be empty.")
+                continue
             else:
-                print("Invalid input. No subjects updated.")
-        except ValueError:
-            print("Invalid input. No subjects updated.")
-        return subjects
+                new_list.append(sub)
+                n += 1
+        return new_list
 
     def delete_student(self, student_id: int):
         for student in self.student_list:
             if student.id == student_id:
                 self.student_list.remove(student)
-                # print(f"Student with ID {student_id} deleted.")
+
                 return
             else:
                 print(f"Student with ID {student_id} not exist")
@@ -198,7 +208,6 @@ def options():
                 print("Enter student ID to update ")
                 try:
                     student_id = int(input("> "))
-                    # student_id = int(input("updating details for student:{student_id}"))
                     students_manager.update_student(student_id)
                 except ValueError:
                     print("Invalid input. Id must be number")
