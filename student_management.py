@@ -86,19 +86,6 @@ class Students:
             return self.get_new_subjects()
         return current_subjects
 
-    # def get_new_subjects(self):
-    #     subjects = []
-    #     try:
-    #         num_of_subjects = int(input("How many subjects to add?  "))
-    #         if num_of_subjects > 0:
-    #             for _ in range(num_of_subjects):
-    #                 subject = input("Enter subject: ")
-    #                 subjects.append(subject)
-    #         else:
-    #             print("Invalid input. No subjects updated.")
-    #     except ValueError:
-    #         print("Invalid input. No subjects updated.")
-    #     return subjects
     def get_new_subjects(self):
         new_list = []
         while True:
@@ -125,40 +112,58 @@ class Students:
         for student in self.student_list:
             if student.id == student_id:
                 self.student_list.remove(student)
-
                 return
             else:
-                print(f"Student with ID {student_id} not exist")
+                print(f"Student with ID: {student_id} does not exist")
 
     def save_students_to_file(self):
         with open("student_data.json", mode="w", encoding="utf-8") as file:
-            json.dump(
-                [student.dic() for student in self.student_list],
-                file,
-                indent=4,
-            )
+            student_data = []
+            for student in self.student_list:
+                student_data.append(student.dic())
+            json.dump(student_data, file, indent=4)
+
+    # def load_students_from_file(self):
+    #     try:
+    #         with open("student_data.json", mode="r", encoding="utf-8") as outfile:
+    #             data = json.load(outfile)
+    #             self.student_list = [
+    #                 Student(
+    #                     student["id"],
+    #                     student["name"],
+    #                     student["age"],
+    #                     student["grade"],
+    #                     student["subjects"],
+    #                 )
+    #                 for student in data
+    #             ]
+
+    #         print(
+    #             "Students loaded from the file."
+    #         )  # we should write Try except in case of we don't find the data.
+
+    #     except Exception as e:
+    #         print(f"Error loading students: {e}")
 
     def load_students_from_file(self):
         try:
-            with open("student_data.json", mode="r", encoding="utf-8") as outfile:
+            with open("student_data.json", "r") as outfile:
                 data = json.load(outfile)
-                self.student_list = [
-                    Student(
+                self.student_list = []
+                for student in data:
+                    student_obj = Student(
                         student["id"],
                         student["name"],
                         student["age"],
                         student["grade"],
                         student["subjects"],
                     )
-                    for student in data
-                ]
-
-            print(
-                "Students loaded from the file."
-            )  # we should write Try except in case of we don't find the data.
-
+                    self.student_list.append(student_obj)
+                print("Students loaded from the file.")
+        except FileNotFoundError as e:
+            print(f"The file student_data.json does not exist. Failed with error {e}.")
         except Exception as e:
-            print(f"Error loading students: {e}")
+            print(f"An unexpected error occured while loading students: {e}.")
 
 
 # getting user input and validating - done but needs more conditons for validation
