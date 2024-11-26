@@ -2,7 +2,7 @@
     {
         "id": 3,
         "name": "sanjana",
-        "age": 23,
+        "age": null,
         "grade": "vg+",
         "subjects": [
             "math",
