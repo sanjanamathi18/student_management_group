@@ -1,33 +1,32 @@
 [
     {
-        "id": 2,
-        "name": "Durga ",
-        "age": 24,
-        "grade": "vg",
+        "id": 3,
+        "name": "sanjana",
+        "age": null,
+        "grade": "vg+",
         "subjects": [
             "math",
-            "eng"
+            "english"
         ]
     },
     {
-        "id": 3,
-        "name": "Sanjana",
-        "age": 30,
+        "id": 4,
+        "name": "sanjana",
+        "age": 23,
         "grade": "vg",
         "subjects": [
-            "eng",
-            "prog",
-            "swed"
+            "math",
+            "physics"
         ]
     },
     {
         "id": 1,
-        "name": "chama",
-        "age": 33,
+        "name": "san",
+        "age": 23,
         "grade": "vg",
         "subjects": [
-            "eng",
-            "math"
+            "math ",
+            "english"
         ]
     }
 ]
