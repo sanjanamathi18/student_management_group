@@ -22,8 +22,14 @@ class Student:
             "name": self.name,
             "age": self.age,
             "grade": self.grade,
+<<<<<<< HEAD
             "subjects": self.subjects,
         }
+=======
+            "subjects": self.subjects
+        }
+    
+>>>>>>> chama
 
 
 # this manages students data (multiple students)
@@ -50,6 +56,7 @@ class Students:
                 print(f"\nUpdating details for Student ID {student_id}.")
                 print("Press Enter to skip and keep the current value.\n")
 
+<<<<<<< HEAD
                 student.name = self.update_name(student.name)
                 student.age = self.update_age(student.age)
                 student.grade = self.update_grade(student.grade)
@@ -164,7 +171,34 @@ class Students:
             print(f"The file student_data.json does not exist. Failed with error {e}.")
         except Exception as e:
             print(f"An unexpected error occured while loading students: {e}.")
+=======
+    def delete_student(self, student_id: int):
+        for student in self.student_list:
+            if student.id == student_id:
+                self.student_list.remove(student)
+                print(f"Student with ID {student_id} deleted.")
+                return
+            else:
+                print(f"Student with ID {student_id} not exist.")
 
+
+    def save_students_to_file(self):
+        with open ("student_data.json", mode="w", encoding="utf-8") as file:
+            json.dump([student.dic() for student in self.student_list], file, indent=4,)
+        
+        print(f"Student saved to the file")
+
+    def load_students_from_file(self):
+        try: 
+            with open("student_data.json", mode="r", encoding="utf-8") as outfile:
+                data = json.load(outfile)
+                self.student_list = [Student(student["id"], student["name"], student["age"], student["grade"], student["subjects"]) for student in data]
+>>>>>>> chama
+
+            print("Students loaded from the file.") # we should write Try except in case of we don't find the data.
+
+        except Exception as e:
+            print(f"Error loading students: {e}")
 
 # getting user input and validating - done but needs more conditons for validation
 def get_input(student_list: List[Student]):
