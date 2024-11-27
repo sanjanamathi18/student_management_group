@@ -123,28 +123,6 @@ class Students:
                 student_data.append(student.dic())
             json.dump(student_data, file, indent=4)
 
-    # def load_students_from_file(self):
-    #     try:
-    #         with open("student_data.json", mode="r", encoding="utf-8") as outfile:
-    #             data = json.load(outfile)
-    #             self.student_list = [
-    #                 Student(
-    #                     student["id"],
-    #                     student["name"],
-    #                     student["age"],
-    #                     student["grade"],
-    #                     student["subjects"],
-    #                 )
-    #                 for student in data
-    #             ]
-
-    #         print(
-    #             "Students loaded from the file."
-    #         )  # we should write Try except in case of we don't find the data.
-
-    #     except Exception as e:
-    #         print(f"Error loading students: {e}")
-
     def load_students_from_file(self):
         try:
             with open("student_data.json", "r") as outfile:
