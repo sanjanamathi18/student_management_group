@@ -46,6 +46,7 @@ class Students:
                 student.print_student()
 
     def update_student(self, student_id: int):
+        
         for student in self.student_list:
             if student.id == student_id:
                 print(f"\nUpdating details for Student ID {student_id}.")
