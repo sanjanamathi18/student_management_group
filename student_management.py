@@ -59,10 +59,11 @@ class Students:
 
 
     def save_students_to_file(self):
-        with open ("student_data.json", mode="w", encoding="utf-8") as file:
-            json.dump([student.dic() for student in self.student_list], file, indent=4,)
-        
-        print(f"Student saved to the file")
+        with open("student_data.json", mode="w", encoding="utf-8") as file:
+            student_data = []
+            for student in self.student_list:
+                student_data.append(student.dic())
+            json.dump(student_data, file, indent=4)
 
     def load_students_from_file(self):
         try: 
