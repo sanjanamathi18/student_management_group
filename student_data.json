@@ -11,8 +11,8 @@
     },
     {
         "id": 4,
-        "name": "sanjana",
-        "age": 23,
+        "name": "Chama",
+        "age": 22,
         "grade": "vg",
         "subjects": [
             "math",
@@ -20,13 +20,13 @@
         ]
     },
     {
-        "id": 1,
-        "name": "san",
-        "age": 23,
+        "id": 2,
+        "name": "Divya",
+        "age": 24,
         "grade": "vg",
         "subjects": [
-            "math ",
-            "english"
+            "maths",
+            "computers"
         ]
     }
 ]
