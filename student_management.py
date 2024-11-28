@@ -22,8 +22,9 @@ class Student:
             "name": self.name,
             "age": self.age,
             "grade": self.grade,
-            "subjects": self.subjects,
+            "subjects": self.subjects
         }
+    
 
 
 # this manages students data (multiple students)
@@ -44,6 +45,7 @@ class Students:
         else:
             for student in self.student_list:
                 student.print_student()
+
 
     def update_student(self, student_id: int):
         
@@ -109,14 +111,19 @@ class Students:
                 new_list.append(sub)
                 n += 1
         return new_list
+    def update_student():
+        pass
+
 
     def delete_student(self, student_id: int):
         for student in self.student_list:
             if student.id == student_id:
                 self.student_list.remove(student)
+                print(f"Student with ID {student_id} deleted.")
                 return
             else:
-                print(f"Student with ID: {student_id} does not exist")
+                print(f"Student with ID {student_id} not exist.")
+
 
     def save_students_to_file(self):
         with open("student_data.json", mode="w", encoding="utf-8") as file:
@@ -126,25 +133,15 @@ class Students:
             json.dump(student_data, file, indent=4)
 
     def load_students_from_file(self):
-        try:
-            with open("student_data.json", "r") as outfile:
+        try: 
+            with open("student_data.json", mode="r", encoding="utf-8") as outfile:
                 data = json.load(outfile)
-                self.student_list = []
-                for student in data:
-                    student_obj = Student(
-                        student["id"],
-                        student["name"],
-                        student["age"],
-                        student["grade"],
-                        student["subjects"],
-                    )
-                    self.student_list.append(student_obj)
-                print("Students loaded from the file.")
-        except FileNotFoundError as e:
-            print(f"The file student_data.json does not exist. Failed with error {e}.")
-        except Exception as e:
-            print(f"An unexpected error occured while loading students: {e}.")
+                self.student_list = [Student(student["id"], student["name"], student["age"], student["grade"], student["subjects"]) for student in data]
 
+            print("Students loaded from the file.") # we should write Try except in case of we don't find the data.
+
+        except Exception as e:
+            print(f"Error loading students: {e}")
 
 # getting user input and validating - done but needs more conditons for validation
 def get_input(student_list: List[Student]):
@@ -173,15 +170,15 @@ def options():
     students_manager = Students()
     while True:
         print("""Choose a function from below options list:
-                1. Add student
-                2. View all students
-                3. Update a student's information
-                4. Delete a student
-                5. Save and exit\n""")
+                            1. Add student
+                            2. View all students
+                            3. Update a student's information
+                            4. Delete a student
+                            5. Save and exit\n""")
         try:
-            option = int(input("> "))
+            option = int(input(">"))
             if option == 1:
-                print("Enter student details.")
+                print("You chose to Add student.\nEnter student details.")
                 student_data = get_input(students_manager.student_list)  # Get input and validate ID
                 if student_data:
                     students_manager.add_student(student_data)
@@ -190,18 +187,13 @@ def options():
                 students_manager.view_all_students()
 
             elif option == 3:
-                print("Enter student ID to update ")
-                try:
-                    student_id = int(input("> "))
-                    students_manager.update_student(student_id)
-                except ValueError:
-                    print("Invalid input. Id must be number")
+                student_id = int(input())
+                students_manager.update_student(student_id)
 
             elif option == 4:
                 try:
                     student_id = int(input("Enter ID of the student to delete: "))
                     students_manager.delete_student(student_id)
-                    print(f"Student with ID {student_id} deleted.")
                 except ValueError:
                     print("Invalid input. ID must be number.")
 
