@@ -39,6 +39,7 @@ class Students:
         print(f"Student {student_data.name} added successfully.")
 
     def view_all_students(self):
+        
         if not self.student_list:
             print("No students available.")
         else:
