@@ -22,8 +22,9 @@ class Student:
             "name": self.name,
             "age": self.age,
             "grade": self.grade,
-            "subjects": self.subjects,
+            "subjects": self.subjects
         }
+    
 
 
 # this manages students data (multiple students)
@@ -38,13 +39,16 @@ class Students:
         print(f"Student {student_data.name} added successfully.")
 
     def view_all_students(self):
+        
         if not self.student_list:
             print("No students available.")
         else:
             for student in self.student_list:
                 student.print_student()
 
+
     def update_student(self, student_id: int):
+        
         for student in self.student_list:
             if student.id == student_id:
                 print(f"\nUpdating details for Student ID {student_id}.")
@@ -107,6 +111,9 @@ class Students:
                 new_list.append(sub)
                 n += 1
         return new_list
+    def update_student():
+        pass
+
 
     def delete_student(self, student_id: int):
         for student in self.student_list:
@@ -114,37 +121,27 @@ class Students:
                 self.student_list.remove(student)
                 print(f"Student with ID {student_id} deleted.")
                 return
-        print(f"Student with ID {student_id} not exist.")
+            else:
+                print(f"Student with ID {student_id} not exist.")
+
 
     def save_students_to_file(self):
-        with open("test_data.json", mode="w", encoding="utf-8") as file:
+        with open("student_data.json", mode="w", encoding="utf-8") as file:
             student_data = []
             for student in self.student_list:
                 student_data.append(student.dic())
             json.dump(student_data, file, indent=4)
 
     def load_students_from_file(self):
-        try:
-            with open("test_data.json", mode="r", encoding="utf-8") as outfile:
+        try: 
+            with open("student_data.json", mode="r", encoding="utf-8") as outfile:
                 data = json.load(outfile)
-                self.student_list = [
-                    Student(
-                        student["id"],
-                        student["name"],
-                        student["age"],
-                        student["grade"],
-                        student["subjects"],
-                    )
-                    for student in data
-                ]
+                self.student_list = [Student(student["id"], student["name"], student["age"], student["grade"], student["subjects"]) for student in data]
 
-            print(
-                "Students loaded from the file."
-            )  # we should write Try except in case of we don't find the data.
+            print("Students loaded from the file.") # we should write Try except in case of we don't find the data.
 
         except Exception as e:
             print(f"Error loading students: {e}")
-
 
 # getting user input and validating - done but needs more conditons for validation
 def get_input(student_list: List[Student]):
