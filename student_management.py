@@ -114,8 +114,7 @@ class Students:
                 self.student_list.remove(student)
                 print(f"Student with ID {student_id} deleted.")
                 return
-            else:
-                print(f"Student with ID {student_id} not exist.")
+        print(f"Student with ID {student_id} not exist.")
 
     def save_students_to_file(self):
         with open("student_data.json", mode="w", encoding="utf-8") as file:
