@@ -59,7 +59,7 @@ class TestStudents(unittest.TestCase):
         new_control.load_students_from_file()
           
         # Verify if the data is loaded successfully 
-        self.assertEqual(len(new_control.student_list), 2)
+        self.assertEqual(len(new_control.student_list), 3)
         self.assertEqual(new_control.student_list[0].name, "Chama")
         self.assertEqual(new_control.student_list[1].name, "Abdel")
         
