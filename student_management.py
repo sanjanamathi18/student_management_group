@@ -126,7 +126,7 @@ class Students:
 
 
     def save_students_to_file(self):
-        with open("student_data.json", mode="w", encoding="utf-8") as file:
+        with open("test_data.json", mode="w", encoding="utf-8") as file:
             student_data = []
             for student in self.student_list:
                 student_data.append(student.dic())
@@ -134,7 +134,7 @@ class Students:
 
     def load_students_from_file(self):
         try: 
-            with open("student_data.json", mode="r", encoding="utf-8") as outfile:
+            with open("test_data.json", mode="r", encoding="utf-8") as outfile:
                 data = json.load(outfile)
                 self.student_list = [Student(student["id"], student["name"], student["age"], student["grade"], student["subjects"]) for student in data]
 
