@@ -1,7 +1,6 @@
 import json
 
 
-# this class stores individual student data
 class Student:
     def __init__(self, id, name, age, grade, subjects):
         self.id = id
@@ -10,12 +9,12 @@ class Student:
         self.grade = grade
         self.subjects = subjects
 
-    def print_student(self):  # to print the details of the student
+    def print_student(self):
         print(
             f"ID: {self.id}, Name: {self.name}, Age: {self.age}, Grade: {self.grade}, Subjects: {', '.join(self.subjects)}"
         )
 
-    def dic(self):
+    def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
@@ -25,11 +24,9 @@ class Student:
         }
 
 
-# this manages students data (multiple students)
 class Students:
-    # student_list,add_students,view_all_students,update_student,delete_student,save_to_file,load_from_file
     def __init__(self, file_name):
-        self.student_list = []  # here im storing instance of 'class Student'
+        self.student_list = []
         self.file_name = file_name
         self.load_students_from_file()
 
@@ -68,7 +65,7 @@ class Students:
         with open(self.file_name, mode="w", encoding="utf-8") as file:
             student_data = []
             for student in self.student_list:
-                student_data.append(student.dic())
+                student_data.append(student.to_dict())
             json.dump(student_data, file, indent=4)
 
     def load_students_from_file(self):
@@ -86,9 +83,7 @@ class Students:
                     for student in data
                 ]
 
-            print(
-                "Students loaded from the file."
-            )  # we should write Try except in case of we don't find the data.
+            print("Students loaded from the file.")
 
         except Exception as e:
             print(f"Error loading students: {e}")
@@ -133,7 +128,7 @@ class Students:
             try:
                 id = int(input("Enter student ID: "))
                 for student in self.student_list:
-                    if student.id == id:  # check condition for unique id
+                    if student.id == id:
                         print("ID exists.")
                     continue
                 else:
@@ -201,9 +196,8 @@ class Students:
 FILE_NAME = "student_data.json"
 
 
-# user options to perform desired operation. - done
 def options():
-    students_manager = Students("student_data.json")
+    students_manager = Students(FILE_NAME)
     while True:
         print("""Choose a function from below options list:
                             1. Add student
@@ -215,7 +209,7 @@ def options():
             option = int(input(">"))
             if option == 1:
                 print("You chose to Add student.\nEnter student details.")
-                student_data = students_manager.get_student_data()  # Get input and validate ID
+                student_data = students_manager.get_student_data()
                 if student_data:
                     students_manager.add_student(student_data)
 
@@ -223,8 +217,11 @@ def options():
                 students_manager.view_all_students()
 
             elif option == 3:
-                student_id = int(input("\nUpdating details for Student ID {student_id}."))
-                students_manager.update_student(student_id)
+                try:
+                    student_id = int(input("Enter student ID: "))
+                    students_manager.field_to_update(student_id)
+                except ValueError:
+                    print("Invalid input. ID must be number.")
 
             elif option == 4:
                 try:
