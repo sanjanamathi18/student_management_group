@@ -119,6 +119,7 @@ class Students:
     def save_students_to_file(self):
         with open("test_data.json", mode="w", encoding="utf-8") as file:
             student_data = []
+
             for student in self.student_list:
                 student_data.append(student.dic())
             json.dump(student_data, file, indent=4)
