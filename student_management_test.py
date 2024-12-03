@@ -3,11 +3,8 @@ import unittest
 import json
 
 
-
 class TestStudents(unittest.TestCase):
-
     def setUp(self):
-
         self.test_file = "test_data.json"
 
         self.students_control = Students()
@@ -17,14 +14,13 @@ class TestStudents(unittest.TestCase):
         with open(self.test_file, "w") as file:
             json.dump([], file)
 
-       
     def test_add_student(self):
         student1 = Student(1, "Durga", 22, "vg", ["Programming", "swidish"])
         student2 = Student(2, "Sanjana", 20, "vg", ["math", "physics"])
-        
+
         self.students_control.add_student(student1)
         self.students_control.add_student(student2)
-        
+
         self.assertEqual(len(self.students_control.student_list), 2)
         self.assertEqual(self.students_control.student_list[0].name, "Durga")
         self.assertEqual(self.students_control.student_list[1].name, "Sanjana")
@@ -44,29 +40,35 @@ class TestStudents(unittest.TestCase):
             self.assertEqual(data[0]["name"], "Chama")
 
     def test_load_students(self):
-        # Load the students from the file 
+        # Load the students from the file
         students_data = [
-            {"id": 3, "name": "Chama", "age": 21, "grade": "A", "subjects": ["Physics", "Chemistry"]},
-            {"id": 4, "name": "Abdel", "age": 33, "grade": "A", "subjects": ["Science", "Biology"]}
+            {
+                "id": 3,
+                "name": "Chama",
+                "age": 21,
+                "grade": "A",
+                "subjects": ["Physics", "Chemistry"],
+            },
+            {"id": 4, "name": "Abdel", "age": 33, "grade": "A", "subjects": ["Science", "Biology"]},
         ]
-         
+
         with open(self.test_file, "w") as file:
             json.dump(students_data, file)
-        
-        # Load the students 
+
+        # Load the students
         new_control = Students()
         new_control.file_path = self.test_file
         new_control.load_students_from_file()
-          
-        # Verify if the data is loaded successfully 
+
+        # Verify if the data is loaded successfully
         self.assertEqual(len(new_control.student_list), 2)
         self.assertEqual(new_control.student_list[0].name, "Chama")
         self.assertEqual(new_control.student_list[1].name, "Abdel")
-        
+
     def test_delete_student(self):
         student4 = Student(4, "Patrik", 23, "C", ["Biology"])
         student5 = Student(5, "Seyda", 25, "B", ["Math", "English"])
-        
+
         # Add students
         self.students_control.add_student(student4)
         self.students_control.add_student(student5)
@@ -81,7 +83,7 @@ class TestStudents(unittest.TestCase):
     def tearDown(self):
         try:
             with open(self.test_file, "w") as file:
-                json.dump[[], file] 
+                json.dump[[], file]
         except Exception as e:
             print(f"Error cleaning up test file: {e}")
 
