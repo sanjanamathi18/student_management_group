@@ -246,7 +246,7 @@ def options():
                 students_manager.view_all_students()
 
             elif option == 3:
-                student_id = int(input())
+                student_id = int(input("\nUpdating details for Student ID {student_id}."))
                 students_manager.update_student(student_id)
 
             elif option == 4:

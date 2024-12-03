@@ -1,0 +1,21 @@
+[
+    {
+        "id": 1,
+        "name": "Sanjana",
+        "age": 22,
+        "grade": "mvg",
+        "subjects": [
+            "computers"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Chama",
+        "age": 24,
+        "grade": "vg",
+        "subjects": [
+            "swedish",
+            "computers"
+        ]
+    }
+]
