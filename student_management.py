@@ -1,5 +1,4 @@
 import json
-from typing import List
 
 
 # this class stores individual student data
@@ -202,31 +201,9 @@ class Students:
 FILE_NAME = "student_data.json"
 
 
-# getting user input and validating - done but needs more conditons for validation
-def get_input(student_list: List[Student]):
-    try:
-        subjects = []
-        student_id = int(input("Enter student id: "))
-        for student in student_list:
-            if student.id == student_id:  # check condition for unique id
-                print(f"Student ID {student_id} already exists.")
-                return
-        name = input("Enter student name: ")
-        age = int(input("Enter student age: "))
-        grade = input("Enter student grade: ")
-        num_of_subjects = int(input("Enter how many subjects: "))
-        for n in range(0, num_of_subjects):
-            n = input("Enter subject: ")
-            subjects.append(n)
-        return Student(student_id, name, age, grade, subjects)
-
-    except ValueError:
-        print("Enter valid data.")
-
-
 # user options to perform desired operation. - done
 def options():
-    students_manager = Students()
+    students_manager = Students("student_data.json")
     while True:
         print("""Choose a function from below options list:
                             1. Add student
@@ -238,7 +215,7 @@ def options():
             option = int(input(">"))
             if option == 1:
                 print("You chose to Add student.\nEnter student details.")
-                student_data = get_input(students_manager.student_list)  # Get input and validate ID
+                student_data = students_manager.get_student_data()  # Get input and validate ID
                 if student_data:
                     students_manager.add_student(student_data)
 
@@ -267,4 +244,5 @@ def options():
             print("Enter only integers.")
 
 
-options()
+if __name__ == "__main__":
+    options()
