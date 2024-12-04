@@ -28,5 +28,15 @@
             "maths",
             "computers"
         ]
+    },
+    {
+        "id": 1,
+        "name": "sanjana",
+        "age": 23,
+        "grade": "vg",
+        "subjects": [
+            "math",
+            "english"
+        ]
     }
 ]
