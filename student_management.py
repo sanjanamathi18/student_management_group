@@ -42,16 +42,40 @@ class Students:
                 student.print_student()
 
     def update_name(self, id, name):
-        pass
+        for  student in self.student_list:
+            if student.id == id:
+                student.name = name
+                print(f"Name updated to {name} for student ID {id}")
+                return student
+            print(f"Student with ID {id} not found!")
+            return None
 
     def update_age(self, id, age):
-        pass
+        for student in self.student_list:
+            if student.id == id:
+                student.age = age 
+                print(f"Age updated to {age} for  student ID {id}")
+                return student
+            print(f"Student with id {id} not found!")
+            return None
 
     def update_grade(self, id, grade):
-        pass
+        for student in self.student_list:
+            if student.id == id:
+                student.grade = grade 
+                print(f"Grade updated to {grade} for  student ID {id}")
+                return student
+            print(f"Student with id {id} not found!")
+            return None
 
     def update_subjects(self, id, subjects):
-        pass
+        for student in self.student_list:
+            if student.id == id:
+                student.subjects = subjects
+                print(f"Subjects updated to {', '.join(subjects)} for student ID {id}.")
+                return student  
+        print(f"Student with ID {id} not found.")
+        return None
 
     def delete_student(self, student_id: int):
         for student in self.student_list:
@@ -127,10 +151,8 @@ class Students:
         while True:
             try:
                 id = int(input("Enter student ID: "))
-                for student in self.student_list:
-                    if student.id == id:
-                        print("ID exists.")
-                    continue
+                if any(student.id == id for student in self.student_list):
+                    print("ID exists.")
                 else:
                     return id
 
