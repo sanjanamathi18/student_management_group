@@ -1,80 +1,51 @@
 from student_management import Student, Students
 import unittest
-# import json
+import json
+import os
 
 
 class TestStudents(unittest.TestCase):
     def setUp(self):
-        self.students_control = Students("test_data.json")
+        self.file_name = "test_data.json"
+        self.students_control = Students(self.file_name)
 
     def test_add_student(self):
-        current_length = len(self.students_control.student_list)
         self.students_control.add_student(Student(1, "Durga", 22, "vg", ["Programming", "swidish"]))
         self.students_control.add_student(Student(2, "Sanjana", 20, "vg", ["math", "physics"]))
         self.assertEqual(self.students_control.student_list[0].name, "Durga")
         self.assertEqual(self.students_control.student_list[1].name, "Sanjana")
-        self.assertEqual(len(self.students_control.student_list), current_length + 2)
-
-    # def test_save_students(self):
-    #     student3 = Student(3, "Chama", 21, "A", ["Physics", "Chemistry"])
-    #     student4 = Student(4, "Abdel", 33, "A", ["Science", "Biologi"])
-
-    #     # Add student and save to file
-    #     self.students_control.add_student(student3)
-    #     self.students_control.add_student(student4)
-    #     self.students_control.save_students_to_file()
-
-    #     with open(self.test_file, "r") as file:
-    #         data = json.load(file)
-    #         self.assertEqual(len(data), 2)
-    #         self.assertEqual(data[0]["name"], "Chama")
-
-    # def test_load_students(self):
-    #     # Load the students from the file
-    #     students_data = [
-    #         {
-    #             "id": 3,
-    #             "name": "Chama",
-    #             "age": 21,
-    #             "grade": "A",
-    #             "subjects": ["Physics", "Chemistry"],
-    #         },
-    #         {"id": 4, "name": "Abdel", "age": 33, "grade": "A", "subjects": ["Science", "Biology"]},
-    #     ]
-
-    #     with open(self.test_file, "w") as file:
-    #         json.dump(students_data, file)
-
-    #     # Load the students
-    #     new_control = Students()
-    #     new_control.file_path = self.test_file
-    #     new_control.load_students_from_file()
-
-    #     # Verify if the data is loaded successfully
-    #     self.assertEqual(len(new_control.student_list), 2)
-    #     self.assertEqual(new_control.student_list[0].name, "Chama")
-    #     self.assertEqual(new_control.student_list[1].name, "Abdel")
 
     def test_delete_student(self):
-        # Add students
         self.students_control.add_student(Student(4, "Patrik", 23, "C", ["Biology"]))
-        self.students_control.add_student(Student(5, "Seyda", 25, "B", ["Math", "English"]))
-        current_length = len(self.students_control.student_list)
-        # Delete a student
+        self.students_control.add_student(Student(5, "Syeda", 25, "B", ["Math", "English"]))
         self.students_control.delete_student(4)
+        self.assertEqual(self.students_control.student_list[0].name, "Syeda")
 
-        # Verify deletion
-        self.assertEqual(len(self.students_control.student_list), current_length - 1)
-        for student in self.students_control.student_list:
-            print(student.dic())
-        self.assertEqual(self.students_control.student_list[0].id, 5)
+    def test_save_students(self):
+        self.students_control.add_student(Student(6, "Vimal", 23, "C", ["Biology"]))
+        self.students_control.save_students_to_file()
+        with open(self.file_name, "r") as file:
+            data = json.load(file)
+            print("data", data)
+            self.assertEqual(data[0]["name"], "Vimal")
 
-    # def tearDown(self):
-    #     try:
-    #         with open(self.test_file, "w") as file:
-    #             json.dump[[], file]
-    #     except Exception as e:
-    #         print(f"Error cleaning up test file: {e}")
+    def test_load_studemts(self):
+        student_1 = Student(6, "Vimal", 23, "C", ["Biology"])
+        student_2 = Student(7, "kamal", 23, "C", ["Maths"])
+        student_3 = Student(8, "rajini", 23, "C", ["science"])
+        self.students_control.add_student(student_1)
+        self.students_control.add_student(student_2)
+        self.students_control.add_student(student_3)
+
+        self.students_control.save_students_to_file()
+        new_students = Students(self.file_name)
+        self.assertEqual(new_students.get_stored_student_data(6).to_dict(), student_1.to_dict())
+        self.assertEqual(new_students.get_stored_student_data(7).to_dict(), student_2.to_dict())
+        self.assertEqual(new_students.get_stored_student_data(8).to_dict(), student_3.to_dict())
+
+    def tearDown(self):
+        if os.path.exists(self.file_name):
+            os.remove(self.file_name)
 
 
 if __name__ == "__main__":
