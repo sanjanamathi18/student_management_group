@@ -15,6 +15,22 @@ class TestStudents(unittest.TestCase):
         self.assertEqual(self.students_control.student_list[0].name, "Durga")
         self.assertEqual(self.students_control.student_list[1].name, "Sanjana")
 
+    def test_update_student(self):
+    
+        self.students_control.add_student(Student(3, "Swathi", 24, "vg", ["Programming", "Swedish"]))
+
+        self.students_control.update_name(3, "swathi")
+        self.assertEqual(self.students_control.student_list[0].name, "swathi")
+
+        self.students_control.update_age(3, 23)
+        self.assertEqual(self.students_control.student_list[0].age, 23)
+
+        self.students_control.update_grade(3, "g")
+        self.assertEqual(self.students_control.student_list[0].grade, "g")
+
+        self.students_control.update_subjects(3, ["Math", "Science"])
+        self.assertEqual(self.students_control.student_list[0].subjects, ["Math", "Science"])
+
     def test_delete_student(self):
         self.students_control.add_student(Student(4, "Patrik", 23, "C", ["Biology"]))
         self.students_control.add_student(Student(5, "Syeda", 25, "B", ["Math", "English"]))
