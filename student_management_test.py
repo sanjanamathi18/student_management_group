@@ -16,11 +16,31 @@ class TestStudents(unittest.TestCase):
         self.assertEqual(self.students_control.student_list[0].name, "Durga")
         self.assertEqual(self.students_control.student_list[1].name, "Sanjana")
 
-    @patch("builtins.print")
+    def test_update_student(self):
+        self.students_control.add_student(
+            Student(3, "Swathi", 24, "vg", ["Programming", "Swedish"])
+        )
+
+        self.students_control.update_name(3, "swathi")
+        self.assertEqual(self.students_control.student_list[0].name, "swathi")
+
+        self.students_control.update_age(3, 23)
+        self.assertEqual(self.students_control.student_list[0].age, 23)
+
+        self.students_control.update_grade(3, "g")
+        self.assertEqual(self.students_control.student_list[0].grade, "g")
+
+        self.students_control.update_subjects(3, ["Math", "Science"])
+        self.assertEqual(self.students_control.student_list[0].subjects, ["Math", "Science"])
+
+    @patch("student_management.to_print")
     def test_view_students(self, mock_print):
-        self.students_control.add_student(Student(3, "MGR", 23, "bad", ["acting", "fighting"]))
+        student_1 = Student(3, "MGR", 23, "bad", ["acting"])
+        self.students_control.add_student(student_1)
         self.students_control.view_all_students()
-        mock_print.assert_any_call("ID: 3,Name: MGR, Age: 23,Grade: bad,Subjects: acting, fighting")
+        mock_print.assert_any_call(
+            {"id": 3, "name": "MGR", "age": 23, "grade": "bad", "subjects": ["acting"]},
+        )
 
     def test_delete_student(self):
         self.students_control.add_student(Student(4, "Patrik", 23, "C", ["Biology"]))
