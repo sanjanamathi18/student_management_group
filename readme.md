@@ -6,14 +6,20 @@ An interactive Student Management System which is  Python-based where users can 
 
 ### Purpose of our project
 
+
+
 ### Getting file
 
-clone repo from here
+clone repo [[from](https://github.com/sanjanamathi18/student_management_group.git)]
 
-### Installing and requirements
+### Dependencies
 
 python 3.12
-see reuirements.txt
+
+### Installing 
+
+1. Navigate to VS code
+2. Clone repo - copied from GitHub
 
 ### How to run
 
@@ -23,10 +29,16 @@ run following commands in the rightplace
 
     python3 -m unittest student_management_test.py
 
-### Workflow of the program
+### Execute the program
 
  1. run the first command 
  
+### FAQs
+
+1. Check Git installation
+2. Check venv for activation
+3. Check package versions
+
 
 
 ### Owners
