@@ -2,6 +2,7 @@ from student_management import Student, Students
 import unittest
 import json
 import os
+from unittest.mock import patch
 
 
 class TestStudents(unittest.TestCase):
@@ -15,6 +16,12 @@ class TestStudents(unittest.TestCase):
         self.assertEqual(self.students_control.student_list[0].name, "Durga")
         self.assertEqual(self.students_control.student_list[1].name, "Sanjana")
 
+    @patch("builtins.print")
+    def test_view_students(self, mock_print):
+        self.students_control.add_student(Student(3, "MGR", 23, "bad", ["acting", "fighting"]))
+        self.students_control.view_all_students()
+        mock_print.assert_any_call("ID: 3,Name: MGR, Age: 23,Grade: bad,Subjects: acting, fighting")
+
     def test_delete_student(self):
         self.students_control.add_student(Student(4, "Patrik", 23, "C", ["Biology"]))
         self.students_control.add_student(Student(5, "Syeda", 25, "B", ["Math", "English"]))
@@ -26,7 +33,6 @@ class TestStudents(unittest.TestCase):
         self.students_control.save_students_to_file()
         with open(self.file_name, "r") as file:
             data = json.load(file)
-            print("data", data)
             self.assertEqual(data[0]["name"], "Vimal")
 
     def test_load_studemts(self):
