@@ -1,6 +1,10 @@
 import json
 
 
+def to_print(message):
+    print(message)
+
+
 class Student:
     def __init__(self, id=0, name="", age=0, grade="", subjects=[]):
         self.id = id
@@ -39,7 +43,7 @@ class Students:
             print("No students available.")
         else:
             for student in self.student_list:
-                student.print_student()
+                to_print(student.to_dict())
 
     def update_name(self, id, name):
         for student in self.student_list:
@@ -105,9 +109,8 @@ class Students:
 
             print("Students loaded from the file.")
 
-        except Exception as e:
-            print(f"Error loading students: {e}")
-            # create_list = []
+        except (FileNotFoundError, json.JSONDecodeError, ValueError):
+            self.student_list = []
 
     def field_to_update(self, id):
         print("ID", "Name", "Age", "Grade", "Subjects")
