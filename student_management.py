@@ -1,8 +1,12 @@
 import json
 
 
+def to_print(message):
+    print(message)
+
+
 class Student:
-    def __init__(self, id, name, age, grade, subjects):
+    def __init__(self, id=0, name="", age=0, grade="", subjects=[]):
         self.id = id
         self.name = name
         self.age = age
@@ -39,14 +43,13 @@ class Students:
             print("No students available.")
         else:
             for student in self.student_list:
-                student.print_student()
+                to_print(student.to_dict())
 
     def update_name(self, id, name):
         for student in self.student_list:
             if student.id == id:
                 student.name = name
                 print(f"Student ID {id}'s name updated to {name}.")
-                self.save_students_to_file()
                 return
         print(f"Student with ID {id} not found.")
 
@@ -55,7 +58,6 @@ class Students:
             if student.id == id:
                 student.age = age
                 print(f"Student ID {id}'s age updated to {age}.")
-                self.save_students_to_file()
                 return
         print(f"Student with ID {id} not found.")
 
@@ -64,7 +66,6 @@ class Students:
             if student.id == id:
                 student.grade = grade
                 print(f"Student ID {id}'s grade updated to {grade}.")
-                self.save_students_to_file()
                 return
         print(f"Student with ID {id} not found.")
 
@@ -73,7 +74,6 @@ class Students:
             if student.id == id:
                 student.subjects = subjects
                 print(f"Student ID {id}'s subjects updated to {', '.join(subjects)}.")
-                self.save_students_to_file()
                 return
         print(f"Student with ID {id} not found.")
 
@@ -109,8 +109,8 @@ class Students:
 
             print("Students loaded from the file.")
 
-        except Exception as e:
-            print(f"Error loading students: {e}")
+        except (FileNotFoundError, json.JSONDecodeError, ValueError):
+            self.student_list = []
 
     def field_to_update(self, id):
         print("ID", "Name", "Age", "Grade", "Subjects")
@@ -138,13 +138,18 @@ class Students:
                         self.update_subjects(id, value)
                     elif feild == "exit":
                         return
-            
+
                     else:
                         print("Invalid field. Please choose: Name, Age, Grade, Subjects")
-                
+
             except ValueError as e:
                 print(f"Error: {e}. Please try again.")
 
+    def get_stored_student_data(self, id: int):
+        for student in self.student_list:
+            if student.id == id:
+                return student
+        return Student()
 
     def get_student_data(self):
         id = self.get_id()
@@ -159,7 +164,8 @@ class Students:
             try:
                 id = int(input("Enter student ID: "))
                 if any(student.id == id for student in self.student_list):
-                    print("ID exists.")
+                    print("ID exist.")
+                    continue
                 else:
                     return id
 
@@ -219,7 +225,7 @@ class Students:
             else:
                 new_list.append(sub)
                 n += 1
-        return new_list 
+        return new_list
 
 
 FILE_NAME = "student_data.json"
