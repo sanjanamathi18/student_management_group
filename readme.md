@@ -31,7 +31,28 @@ run following commands in the rightplace
 
 ### Execute the program
 
- 1. run the first command 
+ Run the first command 
+ 
+ Follow the flow of operations as described below:
+
+1. **Start**
+1. Display Menu¨
+1. Input User Choice
+1. Validate Input
+    - if input is valid, proceed
+    - if invalid,show an error and loop back to input.
+1. Based on the choice:
+    - **Choice 1**: Add Student
+    - **Choice 2**: View All Students
+    - **Choice 3**: Update Student
+        - Check if ID exists.
+            - If yes, update student details.
+            - If no, display "ID doesn't exist."
+    - **Choice 4**: Delete Student
+    - Check if ID exists.
+        - If yes, delete the student.
+        - If no, display "ID doesn't exist."
+    - **Choice 5**: Save and Exit
  
 ### FAQs
 
