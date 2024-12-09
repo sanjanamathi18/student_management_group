@@ -35,8 +35,7 @@ class TestStudents(unittest.TestCase):
 
     @patch("student_management.to_print")
     def test_view_students(self, mock_print):
-        student_1 = Student(3, "MGR", 23, "bad", ["acting"])
-        self.students_control.add_student(student_1)
+        self.students_control.add_student(Student(3, "MGR", 23, "bad", ["acting"]))
         self.students_control.view_all_students()
         mock_print.assert_any_call(
             {"id": 3, "name": "MGR", "age": 23, "grade": "bad", "subjects": ["acting"]},
