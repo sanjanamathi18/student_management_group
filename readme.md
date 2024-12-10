@@ -6,6 +6,12 @@ An interactive Student Management System which is  Python-based where users can 
 
 ### Purpose of our project
 
+The Student Management System is used to make controling student data efficient and simple. It allows users to:
+
+1. Easily add, view, update, and delete student's data.
+2. Save and load data securely.
+3. Ensure data is exacte by validating user input.
+4. Learning Python programming by using classes,       dictionaries, file handling and basic operations.
 
 
 ### Getting file
